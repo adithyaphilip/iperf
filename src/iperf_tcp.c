@@ -241,10 +241,11 @@ iperf_tcp_listen(struct iperf_test *test)
     if (test->settings->fqrate) {
 	/* Convert bits per second to bytes per second */
 	unsigned int fqrate = test->settings->fqrate / 8;
-	if (fqrate > 0) {
+	if (fqrate >= 0) {
 	    if (test->debug) {
 		printf("Setting fair-queue socket pacing to %u\n", fqrate);
 	    }
+	    printf("Setting SO_MAX_PACING_RATE! PHILIP!\n"); // TODO: Remove
 	    if (setsockopt(s, SOL_SOCKET, SO_MAX_PACING_RATE, &fqrate, sizeof(fqrate)) < 0) {
 		warning("Unable to set socket pacing");
 	    }
@@ -592,13 +593,14 @@ iperf_tcp_connect(struct iperf_test *test)
 
 #if defined(HAVE_SO_MAX_PACING_RATE)
     /* If socket pacing is specified try to enable it. */
-    if (test->settings->fqrate) {
+    if (test->settings->fqrate >= 0) {
 	/* Convert bits per second to bytes per second */
 	unsigned int fqrate = test->settings->fqrate / 8;
-	if (fqrate > 0) {
+	if (fqrate >= 0) {
 	    if (test->debug) {
 		printf("Setting fair-queue socket pacing to %u\n", fqrate);
 	    }
+	    printf("Setting SO_MAX_PACING_RATE! PHILIP!\n"); // TODO: Remove
 	    if (setsockopt(s, SOL_SOCKET, SO_MAX_PACING_RATE, &fqrate, sizeof(fqrate)) < 0) {
 		warning("Unable to set socket pacing");
 	    }

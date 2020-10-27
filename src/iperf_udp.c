@@ -418,7 +418,7 @@ iperf_udp_accept(struct iperf_test *test)
     if (test->settings->fqrate) {
 	/* Convert bits per second to bytes per second */
 	unsigned int fqrate = test->settings->fqrate / 8;
-	if (fqrate > 0) {
+	if (fqrate >= 0) {
 	    if (test->debug) {
 		printf("Setting fair-queue socket pacing to %u\n", fqrate);
 	    }
@@ -530,7 +530,7 @@ iperf_udp_connect(struct iperf_test *test)
     if (test->settings->fqrate) {
 	/* Convert bits per second to bytes per second */
 	unsigned int fqrate = test->settings->fqrate / 8;
-	if (fqrate > 0) {
+	if (fqrate >= 0) {
 	    if (test->debug) {
 		printf("Setting fair-queue socket pacing to %u\n", fqrate);
 	    }
